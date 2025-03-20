@@ -34,6 +34,7 @@
 
 .heart:hover {
     cursor: pointer;
+    color: rgb(207, 84, 84);
 }
 
 .likes {

@@ -1,4 +1,5 @@
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
@@ -81,4 +82,12 @@ def user_account(request, username):
         "post_count": len(all_posts),
         "followers": user.followers.count(),
         "following": user.following.count()
+    })
+
+@login_required
+def followed_posts(request):
+    user = User.objects.get(username=request.user.username)
+    all_posts = Post.objects.filter(creator__in=user.following.all())
+    return render(request, "network/followed_posts.html", {
+        "all_posts": all_posts
     })

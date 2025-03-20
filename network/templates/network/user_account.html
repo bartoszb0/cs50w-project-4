@@ -11,12 +11,11 @@
         </p>
 
         {% if request.user != show_user and user.is_authenticated %}
-            <span>FOLLOW & UNFOLLOW BUTTONS/// TODO</span>
+            <button class="btn btn-primary">FOLLOW</button> <!-- use javascript to change innerHTML based on state-->
         {% endif %}
         
     </div>
     
-    <!-- TODO zrobic zeby sie nie powtarzalo wszedzie -->
     <h2>{{ show_user.username }}'s posts</h2>
     {% include 'network/posts.html' %}
 

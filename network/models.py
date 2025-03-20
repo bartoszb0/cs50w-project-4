@@ -5,9 +5,9 @@ from django.db import models
 class User(AbstractUser):
     # 'self' relates to class User
     # who is the user followed by
-    followers = models.ManyToManyField("self")
+    followers = models.ManyToManyField("self", blank=True)
     # who the user follows
-    following = models.ManyToManyField("self")
+    following = models.ManyToManyField("self", blank=True)
 
 class Post(models.Model):
     content = models.TextField(max_length=250)

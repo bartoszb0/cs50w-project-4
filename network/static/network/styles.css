@@ -1,0 +1,52 @@
+/* Body */
+
+.body {
+    margin: 20px;
+}
+
+
+/* Display posts */
+
+.post {
+    border: solid rgb(209, 209, 209) 1px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.post textarea {
+    width: 100%;
+    height: 80px;
+}
+
+.user-link {
+    color: rgb(105, 105, 105);
+}
+
+/* LIKES */
+
+    /* TODO - make animation when user likes the post and unlikes */
+
+.heart {
+    font-size: 28px;
+    color: rgb(112, 112, 112);
+}
+
+.heart:hover {
+    cursor: pointer;
+}
+
+.likes {
+    color: rgb(0, 0, 0);
+    font-size: 28px;
+}
+
+/* Display user's profile */
+
+#profile-div {
+    text-align: center;
+}
+
+.bold {
+    font-weight: bold;
+}

@@ -1,0 +1,23 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+
+    <div id="profile-div">
+        <h1>{{ show_user.username }}</h1>
+        <p>
+            <span class="bold">Posts: </span><span>{{ post_count }}</span>
+            <span class="bold">Followers: </span><span>{{ followers }}</span>
+            <span class="bold">Following: </span><span>{{ following }}</span>
+        </p>
+
+        {% if request.user != show_user and user.is_authenticated %}
+            <span>FOLLOW & UNFOLLOW BUTTONS/// TODO</span>
+        {% endif %}
+        
+    </div>
+    
+    <!-- TODO zrobic zeby sie nie powtarzalo wszedzie -->
+    <h2>{{ show_user.username }}'s posts</h2>
+    {% include 'network/posts.html' %}
+
+{% endblock %}

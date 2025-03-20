@@ -1,5 +1,20 @@
 {% extends "network/layout.html" %}
 
 {% block body %}
-    TODO
+    <h1>All posts</h1>
+
+    {% if user.is_authenticated %}
+        <div class="post">
+            <h3>New Post</h3>
+            <form action="{% url 'index' %}" method="post">
+                {% csrf_token %}
+                <textarea name="content"></textarea>
+                <p><button class="btn btn-primary">Post</button></p>
+            </form>
+        </div>
+    {% endif %}
+
+    <!-- TODO zrobic zeby sie nie powtarzalo wszedzie -->
+    {% include 'network/posts.html' %}
+
 {% endblock %}

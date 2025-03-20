@@ -1,0 +1,8 @@
+{% for post in all_posts %}
+<div class="post">
+    <span><a href="" class="user-link">{{ post.creator }}</a></span>
+    <h3>{{ post.content }}</h3>
+    <span class="heart">&hearts;</span><span class="likes"> {{ post.likes }}</span>
+    <p><span>{{ post.timestamp }}</span></p>
+</div>
+{% endfor %}

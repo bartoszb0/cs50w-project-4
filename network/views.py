@@ -91,3 +91,6 @@ def followed_posts(request):
     return render(request, "network/followed_posts.html", {
         "all_posts": all_posts
     })
+
+# figure out how to distinct followers and following
+# when I followed future as chester, it looks like future gave follow back instead of gaining a follower

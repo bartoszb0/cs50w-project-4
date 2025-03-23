@@ -6,7 +6,7 @@
         <p>
         <span>{{ post.timestamp }}</span>
         {% if user.is_authenticated and post.creator == request.user %}
-            <button class="edit-button">Edit</button>
+            <button class="edit-button" data-post-id="{{ post.id }}">Edit</button>
         {% endif %}
         </p>
 

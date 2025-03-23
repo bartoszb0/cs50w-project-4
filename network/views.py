@@ -1,9 +1,11 @@
+import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db import IntegrityError
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
 from django.urls import reverse
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import User, Post
 
@@ -84,6 +86,7 @@ def user_account(request, username):
         "following": user.following.count()
     })
 
+
 @login_required
 def followed_posts(request):
     user = User.objects.get(username=request.user.username)
@@ -91,6 +94,22 @@ def followed_posts(request):
     return render(request, "network/followed_posts.html", {
         "all_posts": all_posts
     })
+
+
+@csrf_exempt
+def save_edit(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        post_to_edit = Post.objects.get(id=data.get("post_id"))
+        if post_to_edit.creator == request.user:
+            post_to_edit.content = data.get("edit")
+            post_to_edit.save()
+            return JsonResponse({}, status=201)
+    else:
+        return HttpResponseRedirect(reverse('index'))
+    
+
+
 
 # figure out how to distinct followers and following
 # when I followed future as chester, it looks like future gave follow back instead of gaining a follower

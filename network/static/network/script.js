@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+    // EDIT POST
+
     document.querySelectorAll('.edit-button').forEach(element => edit_post(element));
 
     function edit_post(button) {
         button.addEventListener('click', function() {
 
             this.style.visibility = 'hidden'
-            
+
+            const postID = this.dataset.postId
 
             let post = this.parentElement.parentElement
             let content = post.querySelector('.post-content').innerHTML
@@ -34,10 +37,29 @@ document.addEventListener('DOMContentLoaded', function() {
                     post.querySelector('.post-content').style.display = 'block'
                     post.querySelector('.save-button').remove()
                     button.style.visibility = 'visible'
+
+                    fetch(`saveedit`, {
+                        method: 'POST',
+                        body: JSON.stringify({
+                            edit: new_content,
+                            post_id: postID
+                        })
+                    })
                 }
             })
 
-            // TODO fetch data to the server
+        })
+    }
+
+
+    // HANDLE LIKES
+
+    document.querySelectorAll('.heart').forEach(element => add_like(element));
+
+    function add_like(element) {
+        element.addEventListener('click', function() {
+
+            console.log("liked")
 
         })
     }

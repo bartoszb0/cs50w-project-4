@@ -11,7 +11,7 @@
         </p>
 
         {% if request.user != show_user and user.is_authenticated %}
-            <button class="btn btn-primary">FOLLOW</button> <!-- use javascript to change innerHTML based on state-->
+            <button class="btn btn-primary" id="followButton">FOLLOW</button> <!-- use javascript to change innerHTML based on state-->
         {% endif %}
         
     </div>

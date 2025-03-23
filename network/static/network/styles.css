@@ -23,6 +23,30 @@
     color: rgb(105, 105, 105);
 }
 
+.edit-button {
+    background-color: grey;
+    border: 1px solid grey;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+}
+
+.edit-button:hover {
+    background-color: rgb(150, 150, 150);
+}
+
+.save-button {
+    background-color: rgb(96, 170, 73);
+    border: 1px solid rgb(96, 170, 73);
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+}
+
+.save-button:hover {
+    background-color: rgb(62, 141, 37);
+}
+
 /* LIKES */
 
     /* TODO - make animation when user likes the post and unlikes */

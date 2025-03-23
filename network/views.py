@@ -83,7 +83,8 @@ def user_account(request, username):
         "all_posts": all_posts,
         "post_count": len(all_posts),
         "followers": user.followers.count(),
-        "following": user.following.count()
+        "following": user.following.count(),
+        "is_followed": user.followers.filter(username = request.user.username).exists()
     })
 
 

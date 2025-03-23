@@ -66,22 +66,29 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // HANDLE FOLLOW
 
+    
+    console.log(document.querySelector('#followButton').innerHTML)
     document.querySelector('#followButton').addEventListener('click', function() {
-        const button = this
 
-        const user = button.dataset.user
-        console.log(user)
+        let button = document.querySelector('#followButton')
 
+        let followersCount = parseInt(button.parentElement.querySelector('#followersCount').innerHTML)
+        
         // change the display of a button
-        button.style.backgroundColor = 'white'
-        button.style.color = 'black'
-        button.style.borderColor = 'black'
-        button.innerHTML = 'UNFOLLOW///TODO'
+        if (button.innerHTML.trim() === 'UNFOLLOW') {
+            followersCount--
+            button.innerHTML = 'FOLLOW'
+        } else {
+            button.innerHTML = 'UNFOLLOW'
+            followersCount++
+        }
+        console.log(button.innerHTML)
 
-        // increase followers by one or decrease it by one
-
+        button.parentElement.querySelector('#followersCount').innerHTML = followersCount
 
         // fetch data to server
+        const user = button.dataset.user
+
         fetch(`handlefollow`, {
             method: 'POST',
             body: JSON.stringify({

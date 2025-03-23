@@ -6,12 +6,18 @@
         <h1>{{ show_user.username }}</h1>
         <p>
             <span class="bold">Posts: </span><span>{{ post_count }}</span>
-            <span class="bold">Followers: </span><span>{{ followers }}</span>
+            <span class="bold">Followers: </span><span id="followersCount">{{ followers }}</span>
             <span class="bold">Following: </span><span>{{ following }}</span>
         </p>
 
         {% if request.user != show_user and user.is_authenticated %}
-            <button class="btn btn-primary" id="followButton" data-user="{{ show_user.username }}">FOLLOW</button> <!-- use javascript to change innerHTML based on state-->
+            <button class="btn btn-primary" id="followButton" data-user="{{ show_user.username }}">
+                {% if is_followed %}
+                    UNFOLLOW
+                {% else %}
+                    FOLLOW
+                {% endif %}
+            </button>
         {% endif %}
         
     </div>

@@ -54,13 +54,39 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // HANDLE LIKES
 
-    document.querySelectorAll('.heart').forEach(element => add_like(element));
+    document.querySelectorAll('.heart').forEach(element => handle_like(element));
 
-    function add_like(element) {
+    function handle_like(element) {
         element.addEventListener('click', function() {
 
-            console.log("liked")
+            console.log('liked')
 
         })
     }
+
+    // HANDLE FOLLOW
+
+    document.querySelector('#followButton').addEventListener('click', function() {
+        const button = this
+
+        const user = button.dataset.user
+        console.log(user)
+
+        // change the display of a button
+        button.style.backgroundColor = 'white'
+        button.style.color = 'black'
+        button.style.borderColor = 'black'
+        button.innerHTML = 'UNFOLLOW///TODO'
+
+        // increase followers by one or decrease it by one
+
+
+        // fetch data to server
+        fetch(`handlefollow`, {
+            method: 'POST',
+            body: JSON.stringify({
+                follow_who: user
+            })
+        })
+    });
 })

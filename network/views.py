@@ -108,8 +108,27 @@ def save_edit(request):
     else:
         return HttpResponseRedirect(reverse('index'))
     
+@csrf_exempt
+def follow(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
 
+        follow_request = User.objects.get(username = request.user.username)
+        follow_who = User.objects.get(username = data.get("follow_who"))
 
+        if follow_request.following.filter(username=follow_who.username).exists():
+            follow_request.following.remove(follow_who)
+            follow_who.followers.remove(follow_request)
+            print(f"{follow_request} just unfollowed {follow_who}")
+        else:
+            follow_request.following.add(follow_who)
+            follow_who.followers.add(follow_request)
+            print(f"{follow_request} just followed {follow_who}")
 
-# figure out how to distinct followers and following
-# when I followed future as chester, it looks like future gave follow back instead of gaining a follower
+        follow_request.save()
+        follow_who.save()
+
+        return JsonResponse({}, status=201)
+
+    else:
+        return HttpResponseRedirect(reverse('index')) 

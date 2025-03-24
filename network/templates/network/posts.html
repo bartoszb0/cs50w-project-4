@@ -29,3 +29,16 @@
     {% empty %}
     <h3>No posts at the moment</h3>
 {% endfor %}
+
+<div class="pagination text-center">
+    <span class="step-links">
+        <ul class="pagination justify-content-center">
+        {% if all_posts.has_previous %}
+            <li class="page-item"><a href="?page={{ all_posts.previous_page_number }}" class="page-link">previous</a></li>
+        {% endif %}
+        {% if all_posts.has_next %}
+            <li class="page-item"><a href="?page={{ all_posts.next_page_number }}" class="page-link">next</a></li>
+        {% endif %}
+        </ul>
+    </span>
+</div>

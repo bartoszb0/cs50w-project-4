@@ -55,41 +55,65 @@ document.addEventListener('DOMContentLoaded', function() {
     // HANDLE LIKES
 
     document.querySelectorAll('.heart').forEach(element => handle_like(element));
+    document.querySelectorAll('.heart-liked').forEach(element => handle_like(element));
 
     function handle_like(element) {
         element.addEventListener('click', function() {
 
-            console.log('liked')
+            let like_count = parseInt(element.parentElement.querySelector('.likes').innerHTML)
 
+            let displayed_like = element
+
+            if (!displayed_like.classList.contains('heart-liked')) {
+                like_count++
+                displayed_like.classList.add('heart-liked')
+            } else {
+                like_count--
+                displayed_like.classList.remove('heart-liked')
+                displayed_like.classList.add('heart')
+            }
+            
+            element.parentElement.querySelector('.likes').innerHTML = ` ${like_count}`
+
+            // fetch data to server
+            fetch('handlelike', {
+                method: 'POST',
+                body: JSON.stringify({
+                    post_id: element.dataset.postId
+                })
+            })
         })
     }
 
     // HANDLE FOLLOW
 
-    
-    console.log(document.querySelector('#followButton').innerHTML)
-    document.querySelector('#followButton').addEventListener('click', function() {
+    let button = document.querySelector('#followButton')
 
-        let button = document.querySelector('#followButton')
+    if (button.innerHTML.trim() === 'UNFOLLOW') {
+        button.classList.add('unfollow')
+    }
+
+    button.addEventListener('click', function() {
 
         let followersCount = parseInt(button.parentElement.querySelector('#followersCount').innerHTML)
         
         // change the display of a button
         if (button.innerHTML.trim() === 'UNFOLLOW') {
-            followersCount--
             button.innerHTML = 'FOLLOW'
+            followersCount--
+            button.classList.remove('unfollow')
         } else {
             button.innerHTML = 'UNFOLLOW'
             followersCount++
+            button.classList.add('unfollow')
         }
-        console.log(button.innerHTML)
 
         button.parentElement.querySelector('#followersCount').innerHTML = followersCount
 
         // fetch data to server
         const user = button.dataset.user
 
-        fetch(`handlefollow`, {
+        fetch('handlefollow', {
             method: 'POST',
             body: JSON.stringify({
                 follow_who: user

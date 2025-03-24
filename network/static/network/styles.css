@@ -51,15 +51,21 @@
 
     /* TODO - make animation when user likes the post and unlikes */
 
-.heart {
+.heart, .heart-unlikable {
     font-size: 28px;
     color: rgb(112, 112, 112);
 }
 
-.heart:hover {
+.heart-liked {
+    font-size: 28px;
+    color: red;
+}
+
+.heart:hover, .heart-liked:hover {
     cursor: pointer;
     color: rgb(207, 84, 84);
 }
+
 
 .likes {
     color: rgb(0, 0, 0);
@@ -74,4 +80,16 @@
 
 .bold {
     font-weight: bold;
+}
+
+.unfollow {
+    background-color: white;
+    border: 1px solid black;
+    color: black;
+}
+
+.unfollow:hover {
+    background-color: rgb(153, 153, 153);
+    border: 1px solid black;
+    color: black;
 }

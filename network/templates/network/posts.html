@@ -2,7 +2,22 @@
     <div class="post">
         <span><a href="{% url 'user_account' post.creator %}" class="user-link">{{ post.creator }}</a></span>
         <h3 class="post-content">{{ post.content }}</h3>
-        <span class="heart">&hearts;</span><span class="likes"> {{ post.likes }}</span>
+        {% if user.is_authenticated %}
+            {% if user in post.likes.all %}
+                <span class="heart-liked" data-post-id="{{ post.id }}">
+                    &hearts;
+                </span>
+            {% else %}
+                <span class="heart" data-post-id="{{ post.id }}">
+                    &hearts;
+                </span>
+            {% endif %}
+        {% else %}
+            <span class="heart-unlikable" data-post-id="{{ post.id }}">
+                &hearts;
+            </span>
+        {% endif %}
+        <span class="likes"> {{ post.likes.count }}</span>
         <p>
         <span>{{ post.timestamp }}</span>
         {% if user.is_authenticated and post.creator == request.user %}

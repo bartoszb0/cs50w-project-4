@@ -6,8 +6,8 @@
         <h1>{{ show_user.username }}</h1>
         <p>
             <span class="bold">Posts: </span><span>{{ post_count }}</span>
-            <span class="bold">Followers: </span><span id="followersCount">{{ followers }}</span>
-            <span class="bold">Following: </span><span>{{ following }}</span>
+            <span class="bold">Followers: </span><span id="followersCount">{{ show_user.followers.count }}</span>
+            <span class="bold">Following: </span><span>{{ show_user.following.count }}</span>
         </p>
 
         {% if request.user != show_user and user.is_authenticated %}

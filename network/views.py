@@ -1,6 +1,7 @@
 import json
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
 from django.db import IntegrityError
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import render
@@ -82,8 +83,6 @@ def user_account(request, username):
         "show_user": user,
         "all_posts": all_posts,
         "post_count": len(all_posts),
-        "followers": user.followers.count(),
-        "following": user.following.count(),
         "is_followed": user.followers.filter(username = request.user.username).exists()
     })
 
@@ -91,7 +90,7 @@ def user_account(request, username):
 @login_required
 def followed_posts(request):
     user = User.objects.get(username=request.user.username)
-    all_posts = Post.objects.filter(creator__in=user.following.all())
+    all_posts = Post.objects.filter(creator__in=user.following.all()).order_by("-timestamp")
     return render(request, "network/followed_posts.html", {
         "all_posts": all_posts
     })
@@ -120,16 +119,36 @@ def follow(request):
         if follow_request.following.filter(username=follow_who.username).exists():
             follow_request.following.remove(follow_who)
             follow_who.followers.remove(follow_request)
-            print(f"{follow_request} just unfollowed {follow_who}")
+            print(f"{follow_request} just unfollowed {follow_who}") #TODO
         else:
             follow_request.following.add(follow_who)
             follow_who.followers.add(follow_request)
-            print(f"{follow_request} just followed {follow_who}")
+            print(f"{follow_request} just followed {follow_who}") #TODO
 
         follow_request.save()
         follow_who.save()
-
         return JsonResponse({}, status=201)
-
+    
     else:
         return HttpResponseRedirect(reverse('index')) 
+    
+
+@csrf_exempt
+def like_post(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        liked_by = request.user
+        liked_post = Post.objects.get(id = data.get("post_id"))
+        
+        if liked_post.likes.filter(username = liked_by.username).exists():
+            liked_post.likes.remove(liked_by)
+            print(f"{liked_by} unliked {liked_post}")
+        else:
+            liked_post.likes.add(liked_by)
+            print(f"{liked_by} liked {liked_post}")
+
+        liked_post.save()
+
+        return JsonResponse({}, status=201)
+    else:
+        return HttpResponseRedirect(reverse('index'))

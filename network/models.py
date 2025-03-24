@@ -11,6 +11,6 @@ class User(AbstractUser):
 
 class Post(models.Model):
     content = models.TextField(max_length=250)
-    likes = models.IntegerField(default=0)
+    likes = models.ManyToManyField(User, blank=True, related_name="users_who_liked")
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)

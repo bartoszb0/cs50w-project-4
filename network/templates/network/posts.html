@@ -1,6 +1,6 @@
 {% for post in all_posts %}
     <div class="post">
-        <span><a href="{% url 'user_account' post.creator %}" class="user-link">{{ post.creator }}</a></span>
+        <span class="firstspan"><a href="{% url 'user_account' post.creator %}" class="user-link">{{ post.creator }}</a></span>
         <h3 class="post-content">{{ post.content }}</h3>
         {% if user.is_authenticated %}
             {% if user in post.likes.all %}

@@ -14,3 +14,6 @@ class Post(models.Model):
     likes = models.ManyToManyField(User, blank=True, related_name="users_who_liked")
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"ID {self.id}, created by {self.creator.username}. CONTENT: {self.content}"

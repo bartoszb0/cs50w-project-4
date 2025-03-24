@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             if (!post.querySelector('textarea')) {
                 let editable_area = document.createElement('textarea')
-                post.insertBefore(editable_area, post.querySelector('.heart'))
+                post.insertBefore(editable_area, post.querySelector('.firstspan').nextSibling);
                 post.querySelector('textarea').innerHTML = content
             }
 
